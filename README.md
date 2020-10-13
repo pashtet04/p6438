@@ -5,3 +5,7 @@ Mandatory envs:
 production: docker-compose up
 debug: docker-compose -f docker-compose.debug.yml up
 
+POST VALUE:
+curl --location --request POST 'http://127.0.0.1:8080/post-value' \
+--header 'Content-Type: application/json' \
+--data-raw '{"value": "1", "lang": "Python"}'
