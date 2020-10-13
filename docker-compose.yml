@@ -2,14 +2,14 @@ version: '3.11'
 
 services:
   interview:
-    image: interview:latest
+    image: pashte04/interview:p6438
     restart: always
     environment:
       APP_SETTINGS: "config.Config"
-      FLASK_APP: src/app.py 
       DATABASE_URL: "postgresql://postgres:postgres@db:5432/postgres"
     expose:
       - "5000"
+    entrypoint: /app/entrypoint.sh
   db:
     image: postgres:12.4-alpine
     restart: always
