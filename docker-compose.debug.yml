@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  interview:
+    image: interview
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      APP_SETTINGS: "config.Config"
+      FLASK_APP: src/app.py 
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/postgres"
+    expose:
+      - "5000"
+  db:
+    image: postgres:12.4-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ${PWD}/config/postgresql.conf:/etc/postgresql/postgresql.conf
+  web:
+    image: nginx:1.19.3-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ${PWD}/config/nginx.conf:/etc/nginx/nginx.conf:ro
